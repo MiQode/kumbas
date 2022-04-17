@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
@@ -6,8 +7,13 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
+import { Badge } from "react-bootstrap";
+import { Store } from "./Store";
 
 function App() {
+  const { state } = useContext(Store);
+  const { fullBox, cart, userInfo } = state;
+
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
@@ -28,14 +34,14 @@ function App() {
               <Navbar.Collapse id="basic-navbar-nav">
                 {/* <SearchBox /> */}
                 <Nav className="me-auto  w-100  justify-content-end">
-                  {/* <Link to="/cart" className="nav-link">
+                  <Link to="/cart" className="nav-link">
                     Cart
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                       </Badge>
                     )}
-                  </Link> */}
+                  </Link>
                   {/* {userInfo ? (
                     <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
