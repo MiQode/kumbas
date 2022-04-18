@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import Navbar from "react-bootstrap/Navbar";
@@ -13,12 +15,21 @@ import CartScreen from "./screens/CartScreen";
 import SigninScreen from "./screens/SigninScreen";
 
 function App() {
-  const { state } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
   const { fullBox, cart, userInfo } = state;
+
+  const signoutHandler = () => {
+    ctxDispatch({ type: "USER_SIGNOUT" });
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("shippingAddress");
+    localStorage.removeItem("paymentMethod");
+    window.location.href = "/signin";
+  };
 
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
+        <ToastContainer position="bottom-center" limit={1} />
         <header>
           <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
@@ -44,7 +55,7 @@ function App() {
                       </Badge>
                     )}
                   </Link>
-                  {/* {userInfo ? (
+                  {userInfo ? (
                     <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
@@ -81,7 +92,7 @@ function App() {
                         <NavDropdown.Item>Users</NavDropdown.Item>
                       </LinkContainer>
                     </NavDropdown>
-                  )} */}
+                  )}
                 </Nav>
               </Navbar.Collapse>
             </Container>

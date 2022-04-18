@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import { Helmet } from "react-helmet-async";
 import { useContext, useEffect, useState } from "react";
 import { Store } from "../Store";
-// import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { getError } from "../utils";
 
 export default function SigninScreen() {
@@ -27,11 +27,14 @@ export default function SigninScreen() {
         email,
         password,
       });
+
+      //console.log(data)
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
+      // console.log(data)
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
     } catch (err) {
-      // toast.error(getError(err));
+      toast.error(getError(err));
     }
   };
 
