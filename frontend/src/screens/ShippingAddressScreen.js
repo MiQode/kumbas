@@ -34,10 +34,10 @@ export default function ShippingAddressScreen() {
       type: "SAVE_SHIPPING_ADDRESS",
       payload: {
         fullName,
-        // address,
-        // city,
-        // postalCode,
-        // country,
+        address,
+        city,
+        postalCode,
+        country,
         // location: shippingAddress.location,
       },
     });
