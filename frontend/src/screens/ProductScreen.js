@@ -55,7 +55,7 @@ const ProductScreen = () => {
   }, [slug]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const { cart, userInf0 } = state;
 
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
