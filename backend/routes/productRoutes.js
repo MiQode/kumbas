@@ -1,5 +1,5 @@
 import express from "express";
-// import expressAsyncHandler from 'express-async-handler';
+import expressAsyncHandler from "express-async-handler";
 import Product from "../models/productModel.js";
 // import { isAuth, isAdmin } from "../utils.js";
 
@@ -210,13 +210,13 @@ productRouter.get("/", async (req, res) => {
 //   })
 // );
 
-// productRouter.get(
-//   "/categories",
-//   expressAsyncHandler(async (req, res) => {
-//     const categories = await Product.find().distinct("category");
-//     res.send(categories);
-//   })
-// );
+productRouter.get(
+  "/categories",
+  expressAsyncHandler(async (req, res) => {
+    const categories = await Product.find().distinct("category");
+    res.send(categories);
+  })
+);
 
 productRouter.get("/slug/:slug", async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug });
